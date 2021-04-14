@@ -1,6 +1,6 @@
 # Para habilitar os teste inserir o import wsgi
-from src.wsgi import *
-from core.models import Type, Employee
+# from src.wsgi import *
+# from core.models import Type, Employee
 
 # lista os registro de uma tabela
 # query = Type.objects.all()
@@ -53,5 +53,5 @@ from core.models import Type, Employee
 # for i in Type.objects.filter(name__endswith='e'):
 #     print(i.name)
 #
-# # para consultar registros entre tabelas
+#  para consultar registros entre tabelas
 # obj = Employee.objects.filter(type_id=1)

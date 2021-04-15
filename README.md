@@ -12,3 +12,5 @@ Projeto baseado no site Algorisoft - Python com Django
 
       - '/home/plautz/PycharmProjects/templates'
 
+|[] (https://github.com/jlplautz/algorisoft/blob/main/asserts/images/dbase.png)
+

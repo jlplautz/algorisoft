@@ -1,0 +1,11 @@
+{% extends 'index.html' %}
+
+{% block content%}
+
+    <a href="{% url 'core:first' %}">CLICK - Go to First Page</a>
+<ul>
+    {% for product in products %}
+        <li>{{ product.id }} - {{ product.name }} - {{ product.category.name }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

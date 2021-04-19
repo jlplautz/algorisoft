@@ -17,8 +17,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="{% static 'lib/adminlte-3.1.0/plugins/jquery/jquery.min.js' %}"></script>
   <!-- Bootstrap 4 -->
   <script src="{%  static 'lib/adminlte-3.1.0/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  < <!-- AdminLTE App -->
+  <!-- AdminLTE App -->
   <link rel="stylesheet" href="{% static 'lib/adminlte-3.1.0/css/adminlte.min.css' %}">
+  <!-- Criar um block-head  -->
+  {% block head %}
+
+  {% endblock %}
+
 </head>
 {% block body %}
 

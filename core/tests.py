@@ -1,6 +1,6 @@
 # Para habilitar os teste inserir o import wsgi
 # from src.wsgi import *
-# from core.models import Type, Employee, Category
+# from core.models import *
 
 # lista os registro de uma tabela
 # query = Type.objects.all()
@@ -58,3 +58,13 @@
 
 # query = Category.objects.all()
 # print(query)
+
+# para popular um tabela
+# data = ['Leche y derivados', 'Carnes, pescados y huevos', 'Patatas, legumbres, frutos secos',
+#         'Verduras y Hortalizas', 'Frutas', 'Cereales y derivados, azúcar y dulces',
+#         'Grasas, aceite y mantequilla']
+#
+# for i in data:
+#     cat = Category(name=i)
+#     cat.save()
+#     print('Guardado registro N°{}'.format(cat.id))

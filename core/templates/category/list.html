@@ -3,13 +3,14 @@
 {% block columns %}
     <tr>
         <th scope="col">Nro</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Opciones</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Opções</th>
     </tr>
 {% endblock %}
 
 {% block rows %}
-    {% for c in categories %}
+    {#  For CBV -> is necessary to insert object_list  #}
+    {% for c in object_list %}
         <tr>
             <td>{{ c.id }}</td>
             <td>{{ c.name }}</td>

@@ -15,14 +15,37 @@ Projeto baseado no site Algorisoft - Python com Django
 |[] (https://github.com/jlplautz/algorisoft/blob/main/asserts/images/dbase.png)
 
 
+# Procedimento para implementar Datatable
 
+## Apagar os registros da tabela com PostgreSQL
+   - delete from erp_product; 
+     - ALTER SEQUENCE erp_product_id_seq RESTART WITH 1; 
+   - delete from erp_category;
+     -ALTER SEQUENCE erp_category_id_seq RESTART WITH 1;
 
+## Links de datatable
+   - https://datatables.net/download/
+   - https://datatables.net/examples/styling/bootstrap4
+   - https://datatables.net/extensions/fixedheader/examples/styling/bootstrap4.html
+   - https://datatables.net/examples/basic_init/language.html
+   - http://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json
+   - https://datatables.net/examples/basic_init/zero_configuration.html
 
-Django 3.0.4
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+## Links para poder executar
+   <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+   <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+   <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+   <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+   <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+   <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
 
+## Propriedades para inserir ba DataTable
+     $('#data').DataTable({
+           responsive: true,
+           autoWidth: false
+      });
 
-Django 3.2
-Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+## Para trocar o idioma
+    "language": {
+       url : '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
+     }

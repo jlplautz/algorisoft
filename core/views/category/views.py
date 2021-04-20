@@ -1,6 +1,8 @@
 # from django.contrib.auth.decorators import login_required
 # from django.utils.decorators import method_decorator
+from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView
 
 from core.models import Category
@@ -21,11 +23,16 @@ class CategoryListView(ListView):
     template_name = 'category/list.html'
 
     # @login_required()
+    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         # caso o metodo usado seja um GET
         # if request.method == 'GET':
         #     return redirect('core:category_list2')
         return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {'nome': 'Jorge Plautz'}
+        return JsonResponse(data)
 
     # Sob-escrever o metodo queryset para model Category
     # def get_queryset(self):

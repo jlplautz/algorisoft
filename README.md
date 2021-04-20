@@ -75,3 +75,23 @@ Projeto baseado no site Algorisoft - Python com Django
         # if request.method == 'GET':
         #     return redirect('core:category_list2')
         return super().dispatch(request, *args, **kwargs)
+
+
+# Metodo POST
+  - método Post tem a mesma parametrização do metodo Dispatch
+  - quando ocorre uma solicitação com metodo Post - que envolve um objeto (retorna um dicionário)
+  
+  def post(self, request, *args, **kwargs):
+      data = {'nome': 'Jorge Plautz'}
+      return JsonResponse(data)
+  
+### Executando via Postman verificamos que ocorre erro CSRF  
+    - Forbidden (CSRF cookie not set.): /core/category/list
+    
+###  Django tem um mecânico ativo para proteger aplicação com relação ao método POST 
+   - no file Settings.pt -> sessão MIDDLEWARE
+   - 'django.middleware.csrf.CsrfViewMiddleware'
+   - Comentado esta linha tiramos esta proteção
+
+### Podemos usar o decorator para desativar a proteção
+   -@csrf_exempt()

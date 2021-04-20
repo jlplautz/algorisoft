@@ -50,7 +50,7 @@ Projeto baseado no site Algorisoft - Python com Django
        url : '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
      }
 
-# Metodo Dispatch
+# Método Dispatch
   - o metodo dispatch é um executado no inicio quando chamamos um modelo. 
   - O qual se encarrega de direcionar a execução para um GET ou POST dependendo da solicitação
 
@@ -62,3 +62,16 @@ Projeto baseado no site Algorisoft - Python com Django
         return super().dispatch(request, *args, **kwargs)
    
    - https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View.dispatch
+
+# Decorator
+  - Decoradores -> são funçoes que agregam funcionalidades em outras funçoes.
+  - Os decoradores permitem alterar de maneira dinamica a funcionalidade de uma função
+  - necessário usar django.utils.decorators import method_decorator
+
+## Neste exemplo vamos usar um decorator para validar se usuario ewsta logado
+    @login_required()
+    def dispatch(self, request, *args, **kwargs):
+        # caso o metodo usado seja um GET
+        # if request.method == 'GET':
+        #     return redirect('core:category_list2')
+        return super().dispatch(request, *args, **kwargs)

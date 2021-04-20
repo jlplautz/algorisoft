@@ -1,3 +1,5 @@
+# from django.contrib.auth.decorators import login_required
+# from django.utils.decorators import method_decorator
 from django.shortcuts import render
 from django.views.generic import ListView
 
@@ -18,6 +20,7 @@ class CategoryListView(ListView):
     model = Category
     template_name = 'category/list.html'
 
+    # @login_required()
     def dispatch(self, request, *args, **kwargs):
         # caso o metodo usado seja um GET
         # if request.method == 'GET':

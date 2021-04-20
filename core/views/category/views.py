@@ -18,6 +18,12 @@ class CategoryListView(ListView):
     model = Category
     template_name = 'category/list.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        # caso o metodo usado seja um GET
+        # if request.method == 'GET':
+        #     return redirect('core:category_list2')
+        return super().dispatch(request, *args, **kwargs)
+
     # Sob-escrever o metodo queryset para model Category
     # def get_queryset(self):
     #     return Category.objects.filter(name__startswith='L')

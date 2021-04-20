@@ -32,12 +32,12 @@ Projeto baseado no site Algorisoft - Python com Django
    - https://datatables.net/examples/basic_init/zero_configuration.html
 
 ## Links para poder executar
-   <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
-   <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
-   <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
-   <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
-   <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
-   <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+    | <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    | <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+    | <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    | <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    | <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    | <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
 
 ## Propriedades para inserir ba DataTable
      $('#data').DataTable({
@@ -49,3 +49,16 @@ Projeto baseado no site Algorisoft - Python com Django
     "language": {
        url : '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
      }
+
+# Metodo Dispatch
+  - o metodo dispatch é um executado no inicio quando chamamos um modelo. 
+  - O qual se encarrega de direcionar a execução para um GET ou POST dependendo da solicitação
+
+## No exemplo vamos executar vamos sob-escrever o metodo
+    def dispatch(self, request, *args, **kwargs):
+        # caso o metodo usado seja um GET
+        if request.method == 'GET':
+            return redirect('core:category_list2')
+        return super().dispatch(request, *args, **kwargs)
+   
+   - https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View.dispatch

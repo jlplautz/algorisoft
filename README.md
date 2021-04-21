@@ -134,5 +134,103 @@ Projeto baseado no site Algorisoft - Python com Django
       - cat = Category.objects.first()
       - model_to_dict(cat)
       - 'id': 1, 'name': 'Leche y derivados'}
-
     
+## Criar o primeiro formulário Video 26
+  - criar um file forms.py dentro da app core
+  - link -> https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/
+### criar um file file forms.py e uma class CategoryForm 
+
+      class CategoryForm(ModelForm):
+         class Meta:
+            model = Category
+            fields = '__all__'
+            template_name = 'category/create.html'
+    
+### criar uma class views/category/view.py
+
+    class CategoryCreateView(CreateView):
+        model = Category
+        form_class = CategoryForm
+        template_name = 'category/create.html'
+        # Redirecionar quando salvar
+        success_url = reverse_lazy('core:category_list')
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['title'] = 'Criar Categoria'
+            return context
+
+### criar um template core/templates/category/create.html
+
+    {% extends 'body.html' %}
+    {% block content %}
+        <form method="post" action=".">
+            <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">
+                   <i class="fas fa-plus"></i>
+                   {{ title }}
+               </h3>
+            </div>
+            <div class="card-body">
+                {% csrf_token %}
+                {# Para renderizar o componente form #}
+                {{ form.as_p }}
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary btn-flat">
+                 <i class="fas fa-save"></i> Salvar Registro
+                </button>
+         </div>
+        </div>
+        </form>
+    {% endblock %}
+
+### criar URL 
+    path('category/add/', CategoryCreateView.as_view(), name='category_create')
+
+
+## Personalizar o primeiro formulário Video 27
+
+### inicializar o form -> core/forms.py
+   
+    # metodo __init__ para inicialisar o form e evitar duplicidade de codigo
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs['class'] = 'form-control'
+            form.field.widget.attrs['autocomplete'] = 'off'
+            # para colocar foco no TextInput
+            self.fields['name'].widget.attrs['autofocus'] = True
+
+### implementação para renderizar o template -> templates/category/create.html
+  
+    {# Para renderizar o componente form #}
+        {% for field in form.visible_fields %}
+            <div class="form-group">
+                 <label for="email">{{ field.label }}:</label>
+                      {{ field }}
+            </div>
+
+### Instalar a lib django-widget-tweaks 
+   - pip install django-widget-tweaks 
+   - INSTALLED_APPS -> 'widget_tweaks'
+   - inserir dentro do template -> {% load widget_tweaks %}
+     
+   - com a instalação da lib 'widget_tweaks' todemos remover a implementação do formulário
+   - link -> https://github.com/jazzband/django-widget-tweaks
+
+    #     for form in self.visible_fields():
+    #         form.field.widget.attrs['class'] = 'form-control'
+    #         form.field.widget.attrs['autocomplete'] = 'off'
+    #         # para colocar foco no TextInput
+
+   - mas tem que alterar template -> templates/category/create.html
+    
+    {# Para renderizar o componente form #}
+         {% for field in form.visible_fields %}
+            <div class="form-group">
+               <label for="email">{{ field.label }}:</label>
+                  {{ field|add_class:'form-control'|attr:'autocompĺete:off' }}
+            </div>
+         {% endfor %}

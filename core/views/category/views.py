@@ -2,10 +2,12 @@
 # from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 
 from core.models import Category
+from core.forms import CategoryForm
 
 
 # listar Categorias com Function View
@@ -48,4 +50,17 @@ class CategoryListView(ListView):
         context['title'] = 'Lista de Categorias'
         # um exemplo usando o model Product
         # context['object_list'] = Product.objects.all()
+        return context
+
+
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'category/create.html'
+    # Redirecionar quando salvar
+    success_url = reverse_lazy('core:category_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Criar Categoria'
         return context

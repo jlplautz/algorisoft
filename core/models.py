@@ -8,9 +8,11 @@ from core.choices import gender_choices
 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nome', unique=True)
+    desc = models.CharField(max_length=500, null=True, blank=True, verbose_name='Description')
 
     def __str__(self):
-        return 'Nome: {}'.format(self.name)
+        # return 'Nome: {}'.format(self.name)
+        return self.name
 
     def toJSON(self):
         item = {'id': self.id, 'name': self.name}

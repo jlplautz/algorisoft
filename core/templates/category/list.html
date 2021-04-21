@@ -3,7 +3,8 @@
 {% block columns %}
     <tr>
         <th scope="col" style="width: 10%;">Nro</th>
-        <th scope="col" style="width: 70%;">Nome</th>
+        <th scope="col" style="width: 30%;">Nome</th>
+        <th scope="col" style="width: 40%;">Descrição</th>
         <th scope="col" style="width: 20%;">Opções</th>
     </tr>
 {% endblock %}
@@ -14,6 +15,7 @@
         <tr>
             <td>{{ c.id }}</td>
             <td>{{ c.name }}</td>
+            <td>{{ c.desc }}</td>
             <td>
                 <button type="button" class="btn btn-warning btn-xs btn-flat">
                     <i class="fas fa-edit"></i>

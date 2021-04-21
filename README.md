@@ -1,8 +1,8 @@
 # cursoDjango3
 Projeto baseado no site Algorisoft - Python com Django
 
-## Como verificar a estrutura dos diretorio no projeto
-  ### abrir o python console
+##  Como verificar a estrutura dos diretorio no projeto
+  - abrir o python console
   - >>> import os
   - >>> BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
   - >>> BASE_DIR
@@ -15,15 +15,15 @@ Projeto baseado no site Algorisoft - Python com Django
 |[] (https://github.com/jlplautz/algorisoft/blob/main/asserts/images/dbase.png)
 
 
-# Procedimento para implementar Datatable
+## Procedimento para implementar Datatable
 
-## Apagar os registros da tabela com PostgreSQL
+###  Apagar os registros da tabela com PostgreSQL
    - delete from erp_product; 
      - ALTER SEQUENCE erp_product_id_seq RESTART WITH 1; 
    - delete from erp_category;
      -ALTER SEQUENCE erp_category_id_seq RESTART WITH 1;
 
-## Links de datatable
+###  Links de datatable
    - https://datatables.net/download/
    - https://datatables.net/examples/styling/bootstrap4
    - https://datatables.net/extensions/fixedheader/examples/styling/bootstrap4.html
@@ -31,7 +31,7 @@ Projeto baseado no site Algorisoft - Python com Django
    - http://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json
    - https://datatables.net/examples/basic_init/zero_configuration.html
 
-## Links para poder executar
+###  Links para poder executar
     | <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
     | <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
     | <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
@@ -39,13 +39,13 @@ Projeto baseado no site Algorisoft - Python com Django
     | <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
     | <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
 
-## Propriedades para inserir ba DataTable
+###  Propriedades para inserir ba DataTable
      $('#data').DataTable({
            responsive: true,
            autoWidth: false
       });
 
-## Para trocar o idioma
+###  Para trocar o idioma
     "language": {
        url : '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
      }
@@ -54,7 +54,7 @@ Projeto baseado no site Algorisoft - Python com Django
   - o metodo dispatch é um executado no inicio quando chamamos um modelo. 
   - O qual se encarrega de direcionar a execução para um GET ou POST dependendo da solicitação
 
-## No exemplo vamos executar vamos sob-escrever o metodo
+###  No exemplo vamos executar vamos sob-escrever o metodo
     def dispatch(self, request, *args, **kwargs):
         # caso o metodo usado seja um GET
         if request.method == 'GET':
@@ -63,12 +63,12 @@ Projeto baseado no site Algorisoft - Python com Django
    
    - https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View.dispatch
 
-# Decorator
+## Decorator
   - Decoradores -> são funçoes que agregam funcionalidades em outras funçoes.
   - Os decoradores permitem alterar de maneira dinamica a funcionalidade de uma função
   - necessário usar django.utils.decorators import method_decorator
 
-## Neste exemplo vamos usar um decorator para validar se usuario ewsta logado
+### Neste exemplo vamos usar um decorator para validar se usuario ewsta logado
     @login_required()
     def dispatch(self, request, *args, **kwargs):
         # caso o metodo usado seja um GET
@@ -77,7 +77,7 @@ Projeto baseado no site Algorisoft - Python com Django
         return super().dispatch(request, *args, **kwargs)
 
 
-# Metodo POST
+## Metodo POST
   - método Post tem a mesma parametrização do metodo Dispatch
   - quando ocorre uma solicitação com metodo Post - que envolve um objeto (retorna um dicionário)
   
@@ -88,10 +88,51 @@ Projeto baseado no site Algorisoft - Python com Django
 ### Executando via Postman verificamos que ocorre erro CSRF  
     - Forbidden (CSRF cookie not set.): /core/category/list
     
-###  Django tem um mecânico ativo para proteger aplicação com relação ao método POST 
+### Django tem um mecânico ativo para proteger aplicação com relação ao método POST 
    - no file Settings.pt -> sessão MIDDLEWARE
    - 'django.middleware.csrf.CsrfViewMiddleware'
    - Comentado esta linha tiramos esta proteção
 
 ### Podemos usar o decorator para desativar a proteção
    -@csrf_exempt()
+
+## Como usar Ajax com método Post
+  - Ajax é uma tecnologia do tipo async. Permitindo desta forma recarregar somente algumas 
+    informações da pagina. Não necessariamente toda a pagina
+    
+### No botão de inserir uma Categoria nova foi inserido o evento para Ajax Video 25
+  <button class="btn btn-primary btn-flat btnTest"></button> 
+  - inserir um alert para verificar se esta funcionando
+    - $('.btnTest').on('click', function() { alert(x) });
+
+  - inserir a função Ajax -> templates/list.html no botão "Novo Registro"
+    
+            $('.btnTest').on('click', function() {
+                $.ajax({
+                    url: '{% url 'core:category_list' %}', type: 'POST', data: {id: 1},
+                    DataType: 'json'
+                }).done(function (data) {
+                    console.log(data);
+                }).fail(function(jqXHR, textStatus, errorThrown){
+                    alert(textStatus+ ':' +errorThrown );
+                }).always(function(data) {
+                    alert("complete");
+                });
+            });
+    
+ - inserir no models.py
+   
+        def toJSON(self):
+        item = {'id': self.id, 'name': self.name}
+        return item
+      
+  - Test para verificar model_to_dict
+    - (.venv) algorisoft $ mng shell
+      - from django.forms import model_to_dict
+      - from core.models import Category
+      - cat = Category
+      - cat = Category.objects.first()
+      - model_to_dict(cat)
+      - 'id': 1, 'name': 'Leche y derivados'}
+
+    

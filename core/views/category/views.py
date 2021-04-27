@@ -48,6 +48,11 @@ class CategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Lista de Categorias'
+        # create_url -> para encaminhar da list -> create category
+        context['create_url'] = reverse_lazy('core:category_create')
+        context['list_url'] = reverse_lazy('core:category_list')
+        context['entity'] = 'Categorias'
+
         # um exemplo usando o model Product
         # context['object_list'] = Product.objects.all()
         return context
@@ -60,7 +65,20 @@ class CategoryCreateView(CreateView):
     # Redirecionar quando salvar
     success_url = reverse_lazy('core:category_list')
 
+    # # validar campos do formulário
+    # def post(self, request, *args, **kwargs):
+    #     form = CategoryForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return HttpResponseRedirect(self.success_url)
+    #     self.object = None
+    #     context = self.get_context_data(**kwargs)
+    #     context['form'] = form
+    #     return render(request, self.template_name, context)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Criar Categoria'
+        context['entity'] = 'Categorias'
+        context['list_url'] = reverse_lazy('core:category_list')
         return context

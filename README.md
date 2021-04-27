@@ -234,3 +234,109 @@ Projeto baseado no site Algorisoft - Python com Django
                   {{ field|add_class:'form-control'|attr:'autocompĺete:off' }}
             </div>
          {% endfor %}
+
+## Validar o primeiro formulário Video 28
+
+### Para sinalizar erro quando o formulário for preenchido
+   - core/templates/category/create.html
+    <div class="card-body">
+        {% csrf_token %}
+        {# Sinalizar possivel erro qdo o formulário for preenchido  #}
+        {{ form.errors }}
+
+### No views/templates/views podemos sob-escrever o metodo POST
+
+    def post(self, request, *args, **kwargs):
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(self.success_url)
+        self.object = None
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        return render(request, self.template_name, context)
+
+### Podemos tambem comentar o codigo da views/templates/views
+   - core/templates/category/create.html
+     
+
+    {# Sinalizar possivel erro qdo o formulário for preenchido  #}
+    {% if form.errors %}
+       <div class="alert alert-warning alert-dismissible">
+           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+           <h5><i class="icon fa fa-ban"></i> Ocorreu um erro ao salvar o registro</h5>
+           <ul>
+               {% for field in form %}
+                   {% for error in field.errors %}
+                       <li>{{ error }}</li>
+                   {% endfor %}
+               {% endfor %}
+           </ul>
+       </div>
+    {% endif %}
+
+### Podemos ter outra possibilidade da views/templates/views
+   - instalar os recursos da lib sweetalert2 no static/lib
+     - https://sweetalert2.github.io/#download
+     - /home/plautz/PycharmProjects/algorisoft/static/lib/sweetalert2-9.10.0/
+       
+   - inserir no template home
+     
+    <!-- sweetalert2 -->
+    <script src="{% static 'lib/sweetalert2-9.10.0/sweetalert2.all.min.js' %}"></script>
+
+   - core/templates/category/create.html
+
+    <script>
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors+= '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        Swal.fire({
+            title: 'Error!',
+            text: errors,
+            icon: 'error',
+        });
+
+### Criar link da pagina de LISTAR Categorias para Salvar novo registro
+   -  na pagina templates/list.html
+      
+    <a href="{{ create_url }}" class="btn btn-primary btn-flat btnTest">
+       <i class="fas fa-plus"></i> Novo Registro
+    </a>
+
+   -  na views/category/views na função get_context_data(self, **kwargs)
+      - criar a rota 
+
+    def get_context_data(self, **kwargs):
+        . . . 
+        # create_url -> para encaminhar da list -> create category
+        context['create_url'] = reverse_lazy('core:category_create')
+
+### Criar link da pagina de LISTAR Categorias - entity para Categorias
+   -  na pagina templates/body.html
+
+    <li class="breadcrumb-item"><a href="#">Layout</a></li>
+    <!-- alterar para --> 
+    <li class="breadcrumb-item"><a href="{{ list_url }}">{{ entity }}</a></li>
+    
+   - na view -> class CategoryListView(ListView):
+
+    def get_context_data(self, **kwargs):
+        . . . 
+        context['create_url'] = reverse_lazy('core:category_create')
+        context['list_url'] = reverse_lazy('core:category_list')
+        context['entity'] = 'Categorias'
+    
+   - na view -> class CategoryCreateView(CreateView):
+
+    def get_context_data(self, **kwargs):
+        . . . 
+        context['entity'] = 'Categorias'
+        context['list_url'] = reverse_lazy('core:category_list')
+
+

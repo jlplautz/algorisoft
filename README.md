@@ -340,3 +340,35 @@ Projeto baseado no site Algorisoft - Python com Django
         context['list_url'] = reverse_lazy('core:category_list')
 
 
+## Implementar AJAX para enviar os dados Video 29
+  - Implementar AJAX com view generic (CBV)
+  - No file templates/form.html inserir no block content:
+  
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+            // criar um variavel para obter todos os dados do formulário
+            // e atraves de uma jquery podemos enviar todos os dados da
+            var parameters = $(this).serializeArray();
+            $.ajax({
+                    url: '{% url 'core:category_create' %}',
+                    type: 'POST',
+                    data: {id: 1},
+                    DataType: 'json'
+                }).done(function (data) {
+                    console.log(data);
+                }).fail(function(jqXHR, textStatus, errorThrown){
+                    alert(textStatus+':'+errorThrown );
+                }).always(function(data) {
+                    alert("complete");
+                });
+        });
+
+  - inserir um action no get_context_data -> class CategoryCreateView(CreateView)
+    - context['action'] = 'add'
+    
+  - inserir no templates/forms um input 
+    -  <input type="hidden" name="action" value="{{ action }}">
+    
+  - Alterar o metodo POST -> class CategoryCreateView(CreateView):   
+
+Parei o video com 13:17

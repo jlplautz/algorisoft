@@ -35,4 +35,18 @@ class CategoryForm(ModelForm):
                 }
             ),
         }
-        template_name = 'category/create.html'
+        # template_name = 'category/create.html'
+
+    # sobre-escrita do processo save
+    def save(self, commit=True):
+        # criar um variavel
+        data = {}
+        form = super()
+        try:
+            if form.is_valid():
+                form.save()
+            else:
+                data['error'] = form.errors
+        except Exception as e:
+            data['error'] = str(e)
+        return data

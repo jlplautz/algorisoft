@@ -17,9 +17,9 @@
             <td>{{ c.name }}</td>
             <td>{{ c.desc }}</td>
             <td>
-                <button type="button" class="btn btn-warning btn-xs btn-flat">
+                <a href="{% url 'core:category_update' c.id %}" class="btn btn-warning btn-xs btn-flat">
                     <i class="fas fa-edit"></i>
-                </button>
+                </a>
                 <button type="button" class="btn btn-danger btn-xs btn-flat">
                     <i class="fas fa-trash-alt"></i>
                 </button>

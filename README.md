@@ -372,6 +372,7 @@ Projeto baseado no site Algorisoft - Python com Django
   - Alterar o metodo POST -> class CategoryCreateView(CreateView):   
 
 ## Editar um registro Video 30
+
   - Ao utilizar “UpdateView”, você tem acesso ao “self.object”, que é o objeto que está sendo atualizado.
   - Procedimento para listar um registro de uma entidade
   - views/category/views.py -> import UpdateView
@@ -409,3 +410,80 @@ Projeto baseado no site Algorisoft - Python com Django
         type: 'POST',
         data: parameters,
         DataType: 'json'
+
+
+## Deletar um registro Video 31
+
+  - Classe Base View procedimento para deletar registro
+
+
+    class CategoryDeleteView(DeleteView):
+        model = Category
+        template_name = 'category/delete.html'
+        success_url = reverse_lazy('core:category_list')
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['title'] = 'Deletar Categoria'
+            context['entity'] = 'Categorias'
+            context['list_url'] = reverse_lazy('core:category_list')
+            return context
+
+  - criar -> path('category/delete/<int:pk>',CategoryDeleteView.as_view(),name='category_delete')
+
+  - criar file templates/category/delete.html
+  
+
+    {% extends 'body.html' %}
+    {% load widget_tweaks %}
+    {% block content %}
+    <form method="post" action=".">
+        <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-plus"></i>
+                {{ title }}
+            </h3>
+        </div>
+        <div class="card-body">
+            {% csrf_token %}
+
+            <input type="hidden" name="action" value="{{ action }}">
+
+            {# Sinalizar possivel erro qdo o formulário for preenchido  #}
+            {% if form.errors %}
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fa fa-ban"></i> Ocorreu um erro ao salvar o registro</h5>
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        <div class="alert alert-danger alert-dismissible">
+            <h5><i class="icon fas fa-ban"></i>Notificação!</h5>
+            Realmente desejar cancelar o registro {{ object.id }}?
+        </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-flat">
+                <i class="fas fa-save"></i> Sim, aceitar
+            </button>
+            <a href="{{ list_url }}" class="btn btn-info btn-flat">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </div>
+    </div>
+    </form>
+    {% endblock %}
+
+  - alterar o link do list.html
+
+       <a href="{% url 'core:category_delete' c.id %}"  type="button" class="btn btn-danger btn-xs btn-flat">
+           <i class="fas fa-trash-alt"></i>
+       </a>

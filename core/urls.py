@@ -1,10 +1,7 @@
 from django.urls import path
 
-from core.views.category.views import \
-    CategoryUpdateView,\
-    CategoryListView,\
-    CategoryCreateView,\
-    category_list
+from core.views.category.views import CategoryUpdateView, CategoryDeleteView, \
+    CategoryListView, CategoryCreateView, category_list
 
 app_name = 'core'
 
@@ -13,5 +10,6 @@ urlpatterns = [
     # redirecionar usando dispatch na view
     path('category/list2/', category_list, name='category_list2'),
     path('category/add/', CategoryCreateView.as_view(), name='category_create'),
-    path('category/edit/<int:pk>', CategoryUpdateView.as_view(), name='category_update')
+    path('category/edit/<int:pk>/', CategoryUpdateView.as_view(), name='category_update'),
+    path('category/delete/<int:pk>/', CategoryDeleteView.as_view(), name='category_delete')
 ]

@@ -371,4 +371,41 @@ Projeto baseado no site Algorisoft - Python com Django
     
   - Alterar o metodo POST -> class CategoryCreateView(CreateView):   
 
-Parei o video com 13:17
+## Editar um registro Video 30
+  - Ao utilizar “UpdateView”, você tem acesso ao “self.object”, que é o objeto que está sendo atualizado.
+  - Procedimento para listar um registro de uma entidade
+  - views/category/views.py -> import UpdateView
+
+
+    class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'category/create.html'
+    success_url = reverse_lazy('core:category_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Atualizar Categoria'
+        context['entity'] = 'Categorias'
+        context['list_url'] = reverse_lazy('core:category_list')
+        context['action'] = 'edit'
+        return context
+
+  - file urls.py -> path('category/edit/<int:pk>', CategoryUpdateView.as_view(), name='category_update')
+
+  - inserir no file templates/category/list.html
+
+
+       <a href="{% url 'core:category_update' c.id %}" class="btn btn-warning btn-xs btn-flat">
+           <i class="fas fa-edit"></i>
+       </a>
+
+  - alterar no form.html -> url: window.location.pathname,
+
+    
+    $.ajax({
+        #url: '{% url 'core:category_create' %}',#}
+        url: window.location.pathname,
+        type: 'POST',
+        data: parameters,
+        DataType: 'json'

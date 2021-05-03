@@ -20,9 +20,9 @@
                 <a href="{% url 'core:category_update' c.id %}" class="btn btn-warning btn-xs btn-flat">
                     <i class="fas fa-edit"></i>
                 </a>
-                <button type="button" class="btn btn-danger btn-xs btn-flat">
+                <a href="{% url 'core:category_delete' c.id %}"  type="button" class="btn btn-danger btn-xs btn-flat">
                     <i class="fas fa-trash-alt"></i>
-                </button>
+                </a>
             </td>
         </tr>
     {% endfor %}

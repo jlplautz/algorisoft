@@ -1,6 +1,5 @@
 {% extends 'body.html' %}
 {% load widget_tweaks %}
-
 {% block content %}
     <form method="post" action=".">
         <div class="card card-default">
@@ -12,6 +11,9 @@
         </div>
         <div class="card-body">
             {% csrf_token %}
+
+            <input type="hidden" name="action" value="{{ action }}">
+
             {# Sinalizar possivel erro qdo o formulário for preenchido  #}
             {% if form.errors %}
                 <div class="alert alert-warning alert-dismissible">
@@ -50,11 +52,39 @@
                     errors+= '{{ error }}\n';
                 {% endfor %}
             {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error',
+            });
         {% endif %}
-        Swal.fire({
-            title: 'Error!',
-            text: errors,
-            icon: 'error',
+
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+            // criar um variavel para obter todos os dados do formulário
+            // e atraves de uma jquery podemos enviar todos os dados da
+            var parameters = $(this).serializeArray();
+            {#console.log(parameters);#}
+            $.ajax({
+                    url: '{% url 'core:category_create' %}',
+                    type: 'POST',
+                    data: parameters,
+                    DataType: 'json'
+
+                }).done(function (data) {
+                    // perguntar se não tem error fazer redirection
+                   if(!data.hasOwnProperty('error')){
+                       location.href = '{{ list_url }}';
+                       return false;
+                   }
+                    message_error(data.error);
+
+                }).fail(function(jqXHR, textStatus, errorThrown){
+                    alert(textStatus+':'+errorThrown );
+                }).always(function(data) {
+                    {#alert("complete");#}
+                });
         });
+
     </script>
 {% endblock %}

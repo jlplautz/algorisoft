@@ -65,6 +65,19 @@ class CategoryCreateView(CreateView):
     # Redirecionar quando salvar
     success_url = reverse_lazy('core:category_list')
 
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'add':
+                form = self.get_form()
+                data = form.save()
+            else:
+                data['error'] = 'No foi selecionada nenhuma opção!!!'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data)
+
     # # validar campos do formulário
     # def post(self, request, *args, **kwargs):
     #     form = CategoryForm(request.POST)
@@ -81,4 +94,5 @@ class CategoryCreateView(CreateView):
         context['title'] = 'Criar Categoria'
         context['entity'] = 'Categorias'
         context['list_url'] = reverse_lazy('core:category_list')
+        context['action'] = 'add'
         return context

@@ -1,4 +1,6 @@
 # Para habilitar os teste inserir o import wsgi
+# import random
+
 # from src.wsgi import *
 # from core.models import *
 
@@ -68,3 +70,14 @@
 #     cat = Category(name=i)
 #     cat.save()
 #     print('Guardado registro N°{}'.format(cat.id))
+
+# *********************************************************************************
+# letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+#            'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+#
+# for i in range(1, 6000):
+#     name = ''.join(random.choices(letters, k=5))
+#     while Category.objects.filter(name=name).exists():
+#         name = ''.join(random.choices(letters, k=5))
+#     Category(name=name).save()
+#     print('Salvar Registro {}'.format(i))

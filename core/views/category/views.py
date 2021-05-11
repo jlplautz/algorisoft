@@ -11,12 +11,12 @@ from core.forms import CategoryForm
 
 
 # listar Categorias com Function View
-def category_list(request):
-    data = {
-        'title': 'Lista de Categorias',
-        'categories': Category.objects.all()
-    }
-    return render(request, 'category/list.html', data)
+# def category_list(request):
+#     data = {
+#         'title': 'Lista de Categorias',
+#         'categories': Category.objects.all()
+#     }
+#     return render(request, 'category/list.html', data)
 
 
 # listar Categorias com Classe Base View - desde Django 1.3 temos -> Generic List

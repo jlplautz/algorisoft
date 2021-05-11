@@ -1,4 +1,4 @@
-{% extends 'body.html' %}
+{% extends 'layout.html' %}
 {% load widget_tweaks %}
 {% block content %}
     <form method="post" action=".">
@@ -54,7 +54,6 @@
                 data: parameters,
                 DataType: 'json'
             }).done(function (data) {
-
                 if(!data.hasOwnProperty('error')){
                     location.href = '{{ list_url }}';
                     return false;
@@ -63,7 +62,7 @@
             }).fail(function(jqXHR, textStatus, errorThrown){
                 alert(textStatus+':'+errorThrown );
             }).always(function(data) {
-                alert("complete");
+
             });
         });
     </script>

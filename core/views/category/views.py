@@ -1,22 +1,12 @@
 # from django.contrib.auth.decorators import login_required
 # from django.utils.decorators import method_decorator
 from django.http import JsonResponse
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from core.models import Category
 from core.forms import CategoryForm
-
-
-# listar Categorias com Function View
-# def category_list(request):
-#     data = {
-#         'title': 'Lista de Categorias',
-#         'categories': Category.objects.all()
-#     }
-#     return render(request, 'category/list.html', data)
 
 
 # listar Categorias com Classe Base View - desde Django 1.3 temos -> Generic List

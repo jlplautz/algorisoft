@@ -3,7 +3,7 @@
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
 
 from core.models import Category
 from core.forms import CategoryForm
@@ -17,9 +17,6 @@ class CategoryListView(ListView):
     # @login_required()
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
-        # caso o metodo usado seja um GET
-        # if request.method == 'GET':
-        #     return redirect('core:category_list2')
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -36,10 +33,6 @@ class CategoryListView(ListView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
-    # Sob-escrever o metodo queryset para model Category
-    # def get_queryset(self):
-    #     return Category.objects.filter(name__startswith='L')
-
     # Para sob-escrever o metodo -> get_context_data para alterar dados no context
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,9 +41,6 @@ class CategoryListView(ListView):
         context['create_url'] = reverse_lazy('core:category_create')
         context['list_url'] = reverse_lazy('core:category_list')
         context['entity'] = 'Categorias'
-
-        # um exemplo usando o model Product
-        # context['object_list'] = Product.objects.all()
         return context
 
 
@@ -73,17 +63,6 @@ class CategoryCreateView(CreateView):
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data)
-
-    # # validar campos do formulário
-    # def post(self, request, *args, **kwargs):
-    #     form = CategoryForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return HttpResponseRedirect(self.success_url)
-    #     self.object = None
-    #     context = self.get_context_data(**kwargs)
-    #     context['form'] = form
-    #     return render(request, self.template_name, context)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -150,3 +129,28 @@ class CategoryDeleteView(DeleteView):
         context['entity'] = 'Categorias'
         context['list_url'] = reverse_lazy('core:category_list')
         return context
+
+
+class CategoryFormView(FormView):
+    form_class = CategoryForm
+    template_name = 'category/create.html'
+    success_url = reverse_lazy('core:category_list')
+
+    def form_valid(self, form):
+        print(form.is_valid())
+        print(form)
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(form.is_valid())
+        print(form.errors)
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Form | Categoria'
+        context['entity'] = 'Categorias'
+        context['list_url'] = reverse_lazy('core:category_list')
+        context['action'] = 'add'
+        return context
+

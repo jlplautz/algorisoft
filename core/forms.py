@@ -16,6 +16,7 @@ class CategoryForm(ModelForm):
     class Meta:
         model = Category
         fields = '__all__'
+        # fields = ['id', 'name', 'desc']
         labels = {
             'name': 'Nome',
             'desc': 'Descrição'
@@ -35,7 +36,6 @@ class CategoryForm(ModelForm):
                 }
             ),
         }
-        # template_name = 'category/create.html'
 
     # sobre-escrita do processo save
     def save(self, commit=True):
@@ -50,3 +50,10 @@ class CategoryForm(ModelForm):
         except Exception as e:
             data['error'] = str(e)
         return data
+
+    # def clean(self):
+    #     cleaned = super().clean()
+    #     if len(cleaned['name']) <= 50:
+    #         raise forms.ValidationError('Mensagem de error')
+    #         # self.add_error('name', 'Caracteres insuficentes')
+    #     return cleaned

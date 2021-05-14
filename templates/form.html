@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 {% block content %}
     <form method="post" action=".">
-        <div class="card card-default">
+        <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">
                 {% if action == 'add' %}
@@ -53,6 +53,10 @@
                     errors+= '{{ error }}\n';
                 {% endfor %}
             {% endfor %}
+            // para apresentar error que não pertencem ao formulário
+            {% for error in form.nom_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
             Swal.fire({
                 title: 'Error!',
                 text: errors,
@@ -60,13 +64,13 @@
             });
         {% endif %}
 
-        $('form').on('submit', function(e) {
+        /*$('form').on('submit', function(e) {
             e.preventDefault();
             // criar um variavel para obter todos os dados do formulário
             // e atraves de uma jquery podemos enviar todos os dados da
             var parameters = $(this).serializeArray();
             $.ajax({
-                {#url: '{% url 'core:category_create' %}',#}
+                url: '{% url 'core:category_create' %}',
                 url: window.location.pathname,
                 type: 'POST',
                 data: parameters,
@@ -83,6 +87,6 @@
             }).always(function(data) {
 
             });
-        });
+        });*/
     </script>
 {% endblock %}

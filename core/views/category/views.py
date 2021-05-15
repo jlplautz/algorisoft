@@ -153,4 +153,3 @@ class CategoryFormView(FormView):
         context['list_url'] = reverse_lazy('core:category_list')
         context['action'] = 'add'
         return context
-

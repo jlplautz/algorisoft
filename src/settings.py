@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # Applications
     'core',
     'homepage',
+    'login',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     (BASE_DIR / "static"),
 ]
+
+LOGIN_REDIRECT_URL = '/core/category/list/'

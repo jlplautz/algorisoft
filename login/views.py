@@ -1,4 +1,4 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 
@@ -7,7 +7,7 @@ from django.contrib.auth.views import LoginView
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import FormView
+from django.views.generic import FormView, RedirectView
 
 
 class LoginFormView(LoginView):
@@ -50,3 +50,12 @@ class LoginFormView2(FormView):
         context = super().get_context_data(**kwargs)
         context['tittle'] = 'Iniciar sessão'
         return context
+
+
+class LogoutRedirectView(RedirectView):
+    pattern_name = 'login'
+
+    # para encerrar a sessão
+    def dispatch(self, request, *args, **kwargs):
+        logout(request)
+        return super().dispatch(request, *args, **kwargs)

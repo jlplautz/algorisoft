@@ -140,3 +140,4 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_REDIRECT_URL = '/core/category/list/'
+LOGOUT_REDIRECT_URL = '/login/'

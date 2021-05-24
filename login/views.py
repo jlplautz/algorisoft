@@ -1,13 +1,11 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
-
-
-# Create your views here.
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView, RedirectView
+import src.settings as setting
 
 
 class LoginFormView(LoginView):
@@ -16,7 +14,7 @@ class LoginFormView(LoginView):
     # para verificar se a sessão foi iniciada
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('core:category_list')
+            return redirect(setting.LOGIN_REDIRECT_URL)
         return super().dispatch(request, *args, **kwargs)
 
     # para sob-escrever o metodo get_context_data
@@ -31,7 +29,7 @@ class LoginFormView(LoginView):
 class LoginFormView2(FormView):
     form_class = AuthenticationForm
     template_name = 'login.html'
-    success_url = reverse_lazy('core:category_list')
+    success_url = reverse_lazy(setting.LOGIN_REDIRECT_URL)
 
     # para verificar se a sessão foi iniciada
     def dispatch(self, request, *args, **kwargs):

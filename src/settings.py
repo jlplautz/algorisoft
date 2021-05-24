@@ -139,5 +139,6 @@ STATICFILES_DIRS = [
     (BASE_DIR / "static"),
 ]
 
-LOGIN_REDIRECT_URL = '/core/category/list/'
+LOGIN_REDIRECT_URL = '/core/dashboard/'
 LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_URL = '/login/'

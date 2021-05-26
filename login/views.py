@@ -1,6 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -57,3 +57,7 @@ class LogoutRedirectView(RedirectView):
     def dispatch(self, request, *args, **kwargs):
         logout(request)
         return super().dispatch(request, *args, **kwargs)
+
+
+class LogoutFormView(LogoutView):
+    pass

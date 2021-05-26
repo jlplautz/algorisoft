@@ -15,8 +15,7 @@ class Category(models.Model):
         return self.name
 
     def toJSON(self):
-        item = {'id': self.id, 'name': self.name}
-        model_to_dict
+        item = model_to_dict(self)
         return item
 
     class Meta:

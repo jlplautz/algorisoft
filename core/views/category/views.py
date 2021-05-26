@@ -1,12 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
 
-from core.models import Category
 from core.forms import CategoryForm
+from core.models import Category
 
 
 # listar Categorias com Classe Base View - desde Django 1.3 temos -> Generic List
@@ -53,7 +53,7 @@ class CategoryCreateView(CreateView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        # self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -64,7 +64,7 @@ class CategoryCreateView(CreateView):
                 form = self.get_form()
                 data = form.save()
             else:
-                data['error'] = 'No foi selecionada nenhuma opção!!!'
+                data['error'] = 'Não foi selecionada nenhuma opção!!!'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data)
@@ -97,7 +97,7 @@ class CategoryUpdateView(UpdateView):
                 form = self.get_form()
                 data = form.save()
             else:
-                data['error'] = 'No foi selecionada nenhuma opção!!!'
+                data['error'] = 'Não foi selecionada nenhuma opção!!!'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data)

@@ -39,6 +39,9 @@
             <a href="{{ create_url }}" class="btn btn-primary btn-flat btnTest">
                 <i class="fas fa-plus"></i> Novo Registro
             </a>
+            <a href="{{ list_url }}" class="btn btn-success btn-flat">
+                <i class="fas fa-sync"></i> Atualizar
+            </a>
             </button>
         </div>
     </div>
@@ -63,7 +66,7 @@
                 }).fail(function(jqXHR, textStatus, errorThrown){
                     alert(textStatus+':'+errorThrown );
                 }).always(function(data) {
-                    alert("complete");
+
                 });
             });
         });

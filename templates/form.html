@@ -23,7 +23,7 @@
                     <h5><i class="icon fa fa-ban"></i> Ocorreu um erro ao salvar o registro</h5>
                     <ul>
                         {% for field in form %}
-                            {% for error in field.errors %}
+                            {% for error in field.errors %}F
                                 <li>{{ error }}</li>
                             {% endfor %}
                         {% endfor %}
@@ -42,6 +42,9 @@
             <button type="submit" class="btn btn-primary btn-flat">
                 <i class="fas fa-save"></i> Salvar Registro
             </button>
+            <a href="{{ list_url }}" class="btn btn-danger btn-flat">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
         </div>
     </div>
     </form>
@@ -50,43 +53,27 @@
             var errors = '';
             {% for field in form %}
                 {% for error in field.errors %}
-                    errors+= '{{ error }}\n';
+                    errors += '{{ error }}\n';
                 {% endfor %}
             {% endfor %}
-            // para apresentar error que não pertencem ao formulário
-            {% for error in form.nom_field_errors %}
+            {% for error in form.non_field_errors %}
                 errors += '{{ error }}\n';
             {% endfor %}
             Swal.fire({
                 title: 'Error!',
                 text: errors,
-                icon: 'error',
+                icon: 'error'
             });
         {% endif %}
 
-        /*$('form').on('submit', function(e) {
+        $('form').on('submit', function (e) {
             e.preventDefault();
-            // criar um variavel para obter todos os dados do formulário
-            // e atraves de uma jquery podemos enviar todos os dados da
             var parameters = $(this).serializeArray();
-            $.ajax({
-                url: '{% url 'core:category_create' %}',
-                url: window.location.pathname,
-                type: 'POST',
-                data: parameters,
-                DataType: 'json'
-            }).done(function (data) {
-                // perguntar se não tem error fazer redirection
-                if(!data.hasOwnProperty('error')){
-                    location.href = '{{ list_url }}';
-                    return false;
-                }
-                message_error(data.error);
-            }).fail(function(jqXHR, textStatus, errorThrown){
-                alert(textStatus+':'+errorThrown );
-            }).always(function(data) {
 
+            submit_with_ajax(window.location.pathname, parameters, function () {
+                location.href = '{{ list_url }}';
             });
-        });*/
+        });
+
     </script>
 {% endblock %}

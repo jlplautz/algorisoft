@@ -1,6 +1,7 @@
 # cursoDjango3
 Projeto baseado no site Algorisoft - Python com Django
 
+
 ##  Como verificar a estrutura dos diretorio no projeto
   - abrir o python console
   - >>> import os

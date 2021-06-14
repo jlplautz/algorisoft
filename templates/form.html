@@ -66,14 +66,18 @@
             });
         {% endif %}
 
-        {#$('form').on('submit', function (e) {#}
-        {#    e.preventDefault();#}
-        {#    var parameters = $(this).serializeArray();#}
-        {##}
-        {#    submit_with_ajax(window.location.pathname, 'Notification', 'Esta seguro que deseja executar esta operação?', parameters, function () {#}
-        {#        location.href = '{{ list_url }}';#}
-        {#    });#}
-        {#});#}
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            {#var parameters = $(this).serializeArray();#}
+
+            // para poder carregar imagens via AJAX -> usar FormData(this) -> this com referencia ao 'form'
+            var parameters = new FormData(this);
+            // para fazer a interação
+            {#parameters.forEach(function (value, key) {console.log(key+':'+value);});#}
+            submit_with_ajax(window.location.pathname, 'Notification', 'Esta seguro que deseja executar esta operação?', parameters, function () {
+                location.href = '{{ list_url }}';
+            });
+        });
 
     </script>
 {% endblock %}

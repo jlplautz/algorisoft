@@ -10,6 +10,7 @@
                 {% else %}
                     <i class="fas fa-edit"></i>
                 {% endif %}
+
                 {{ title }}
             </h3>
         </div>
@@ -23,7 +24,7 @@
                     <h5><i class="icon fa fa-ban"></i> Ocorreu um erro ao salvar o registro</h5>
                     <ul>
                         {% for field in form %}
-                            {% for error in field.errors %}F
+                            {% for error in field.errors %}
                                 <li>{{ error }}</li>
                             {% endfor %}
                         {% endfor %}
@@ -78,6 +79,5 @@
                 location.href = '{{ list_url }}';
             });
         });
-
     </script>
 {% endblock %}

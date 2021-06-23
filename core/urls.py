@@ -5,6 +5,7 @@ from core.views.category.views import CategoryUpdateView, CategoryDeleteView, \
 from core.views.product.views import ProductListView, ProductCreateView, ProductUpdateView, \
     ProductDeleteView
 from core.views.dashboard.views import DashboardView
+from core.views.tests.views import TestView
 
 app_name = 'core'
 
@@ -21,5 +22,7 @@ urlpatterns = [
     path('product/update/<int:pk>/', ProductUpdateView.as_view(), name='product_update'),
     path('product/delete/<int:pk>/', ProductDeleteView.as_view(), name='product_delete'),
     # home
-    path('dashboard/', DashboardView.as_view(), name='dashboard')
+    path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    # test
+    path('test/', TestView.as_view(), name='test')
 ]

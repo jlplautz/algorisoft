@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TextInput, Textarea
+from django.forms import ModelForm, Form, Textarea, TextInput, ModelChoiceField, Select
 from core.models import Category, Product
 
 
@@ -80,3 +80,14 @@ class ProductForm(ModelForm):
         except Exception as e:
             data['error'] = str(e)
         return data
+
+
+class TestForm(Form):
+    categorias = ModelChoiceField(queryset=Category.objects.all(), widget=Select(attrs={
+        'class': 'form-control'
+    }))
+
+    # como deve estar vazio fazemos a queryset com objects.none()
+    products = ModelChoiceField(queryset=Product.objects.none(), widget=Select(attrs={
+        'class': 'form-control'
+    }))

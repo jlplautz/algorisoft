@@ -25,7 +25,7 @@ class TestView(TemplateView):
                 # data = []
                 data = [{'id': '', 'name': '-----------'}]
                 for i in Product.objects.filter(category_id=request.POST['id']):
-                    data.append({'id': i.id, 'name': i.name})
+                    data.append({'id': i.id, 'name': i.name, 'data': i.category.toJSON()})
             else:
                 data['error'] = 'Ocorreu um error'
         except Exception as e:

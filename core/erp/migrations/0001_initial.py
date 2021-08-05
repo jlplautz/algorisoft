@@ -35,7 +35,9 @@ class Migration(migrations.Migration):
                 ('dni', models.CharField(max_length=10, unique=True, verbose_name='Dni')),
                 ('birthday', models.DateField(default=datetime.datetime.now, verbose_name='Data de nascimento')),
                 ('address', models.CharField(blank=True, max_length=150, null=True, verbose_name='Endereço')),
-                ('sexo', models.CharField(choices=[('male', 'Masculino'), ('female', 'Femenino')], default='male', max_length=10, verbose_name='Sexo')),
+                ('sexo', models.CharField(choices=[
+                    ('male', 'Masculino'), ('female', 'Femenino')],
+                    default='male', max_length=10, verbose_name='Sexo')),
             ],
             options={
                 'verbose_name': 'Cliente',
@@ -64,9 +66,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=150, unique=True, verbose_name='Nome')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='product/%Y/%m/%d', verbose_name='Imagem')),
+                ('image', models.ImageField(blank=True, null=True,
+                                            upload_to='product/%Y/%m/%d', verbose_name='Imagem')),
                 ('pvp', models.DecimalField(decimal_places=2, default=0.0, max_digits=9, verbose_name='Preço d Venda')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='erp.Category', verbose_name='Categoria')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                               to='erp.Category', verbose_name='Categoria')),
             ],
             options={
                 'verbose_name': 'Produto',

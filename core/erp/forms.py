@@ -28,6 +28,8 @@ class CategoryForm(ModelForm):
                 }
             ),
         }
+        # para excluir bo formularios os campos
+        exclude = ['user_updated', 'user_creation']
 
     # sobre-escrita do processo save
     def save(self, commit=True):

@@ -1,10 +1,10 @@
 
 from django.urls import path
-from core.erp.views.category.views import *
-# CategoryUpdateView, CategoryDeleteView, \
-#     CategoryListView, CategoryCreateView, CategoryFormView
-from core.erp.views.product.views import *
-    # ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView
+from core.erp.views.category.views import (
+    CategoryUpdateView, CategoryDeleteView,
+    CategoryListView, CategoryCreateView, CategoryFormView
+)
+from core.erp.views.product.views import ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView
 from core.erp.views.dashboard.views import DashboardView
 from core.erp.views.tests.views import TestView
 

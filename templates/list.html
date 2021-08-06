@@ -35,14 +35,15 @@
             </table>
         </div>
         <div class="card-footer">
-            <!-- alterar button para um etiqueta para poder mover de listar para gravar categorias-->
-            <a href="{{ create_url }}" class="btn btn-primary btn-flat btnTest">
-                <i class="fas fa-plus"></i> Novo Registro
-            </a>
-            <a href="{{ list_url }}" class="btn btn-success btn-flat">
-                <i class="fas fa-sync"></i> Atualizar
-            </a>
-            </button>
+            {% block buttons_list %}
+                <!-- alterar button para um etiqueta para poder mover de listar para gravar categorias-->
+                <a href="{{ create_url }}" class="btn btn-primary btn-flat btnTest">
+                    <i class="fas fa-plus"></i> Novo Registro
+                </a>
+                <a href="{{ list_url }}" class="btn btn-success btn-flat">
+                    <i class="fas fa-sync"></i> Atualizar
+                </a>
+            {% endblock %}
         </div>
     </div>
 {% endblock %}

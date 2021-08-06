@@ -4,6 +4,7 @@ from core.erp.views.category.views import (
     CategoryUpdateView, CategoryDeleteView,
     CategoryListView, CategoryCreateView, CategoryFormView
 )
+from core.erp.views.client.views import ClientView
 from core.erp.views.product.views import ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView
 from core.erp.views.dashboard.views import DashboardView
 from core.erp.views.tests.views import TestView
@@ -22,6 +23,8 @@ urlpatterns = [
     path('product/add/', ProductCreateView.as_view(), name='product_create'),
     path('product/update/<int:pk>/', ProductUpdateView.as_view(), name='product_update'),
     path('product/delete/<int:pk>/', ProductDeleteView.as_view(), name='product_delete'),
+    # client
+    path('client/', ClientView.as_view(), name='client'),
     # home
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     # test

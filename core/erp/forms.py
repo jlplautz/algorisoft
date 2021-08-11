@@ -108,17 +108,17 @@ class ClientForm(ModelForm):
         widgets = {
             'names': TextInput(
                 attrs={
-                    'placeholder': 'Ingrese sus nombres',
+                    'placeholder': 'Inserir seu nome',
                 }
             ),
             'surnames': TextInput(
                 attrs={
-                    'placeholder': 'Ingrese sus apellidos',
+                    'placeholder': 'Inserir seu sobrenome',
                 }
             ),
             'dni': TextInput(
                 attrs={
-                    'placeholder': 'Ingrese su dni',
+                    'placeholder': 'Inserir seu RG',
                 }
             ),
             'date_birthday': DateInput(format='%Y-%m-%d', attrs={
@@ -127,7 +127,7 @@ class ClientForm(ModelForm):
             ),
             'address': TextInput(
                 attrs={
-                    'placeholder': 'Ingrese su dirección',
+                    'placeholder': 'Inserir seu endereço',
                 }
             ),
             'gender': Select()

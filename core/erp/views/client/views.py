@@ -34,6 +34,15 @@ class ClientView(TemplateView):
                 cli.address = request.POST['address']
                 cli.gender = request.POST['gender']
                 cli.save()
+            elif action == 'edit':
+                cli = Client.objects.get(pk=request.POST['id'])
+                cli.names = request.POST['names']
+                cli.surnames = request.POST['surnames']
+                cli.dni = request.POST['dni']
+                cli.date_birthday = request.POST['date_birthday']
+                cli.address = request.POST['address']
+                cli.gender = request.POST['gender']
+                cli.save()
             else:
                 data['error'] = 'Ha ocurrido un error'
         except Exception as e:
@@ -42,7 +51,7 @@ class ClientView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Listado de Clientes'
+        context['title'] = 'Lista de Clientes'
         context['list_url'] = reverse_lazy('erp:client')
         context['entity'] = 'Clientes'
         context['form'] = ClientForm()

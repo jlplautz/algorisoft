@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
 from core.erp.forms import TestForm
-from core.erp.models import Product
+from core.erp.models import Product,Category
 
 
 class TestView(TemplateView):
@@ -26,6 +26,12 @@ class TestView(TemplateView):
                 data = [{'id': '', 'name': '-----------'}]
                 for i in Product.objects.filter(category_id=request.POST['id']):
                     data.append({'id': i.id, 'name': i.name, 'data': i.category.toJSON()})
+            elif action == 'autocomplete':
+                data = []
+                for i in Category.objects.filter(name__icontains=request.POST['term'])[0:10]:
+                    item = i.toJSON()
+                    item['value'] = i.name
+                    data.append(item)
             else:
                 data['error'] = 'Ocorreu um error'
         except Exception as e:

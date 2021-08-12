@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.forms import ModelForm, Form, Textarea, TextInput, ModelChoiceField, Select, DateInput
+from django.forms import ModelForm, Form, Textarea, TextInput, ModelChoiceField, Select, DateInput, CharField
 from core.erp.models import Category, Product, Client
 
 
@@ -94,6 +94,11 @@ class TestForm(Form):
     # como deve estar vazio fazemos a queryset com objects.none()
     products = ModelChoiceField(queryset=Product.objects.none(), widget=Select(attrs={
         'class': 'form-control'
+    }))
+
+    search = CharField(widget=TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Inserir uma descrição'
     }))
 
 
